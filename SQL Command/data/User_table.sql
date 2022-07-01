@@ -11,7 +11,7 @@ VALUES ('U_00003', 'Sadia Nur Nazifa', 'ABCD1234', TO_DATE('15 May 2000', 'DD Mo
 
 
 INSERT INTO USER_TABLE (USER_ID, USERNAME, PASSWORD, DOB, DOR, ROLE, CONT_EMAIL, CONT_PHONE, ADD_COUNTRY, ADD_STATE, ADD_DISTRICT, ADD_CITY, ADD_AREA, ADD_POSTAL_CODE) 
-VALUES ('U_00004', 'Sadi Ahmed', 'ABCD1234', TO_DATE('15 May 1999', 'DD Month, YYYY'), TO_DATE('18 October 2021', 'DD Month, YYYY'), 'Customer', 'sadiasadi@email.com', '+8801719877564', 'Bangladesh', 'Dhaka', 'Dhaka', 'Dhaka', 'Aziz Polli', '1206');
+VALUES ('U_00004', 'Easin Arafat', 'ABCD1234', TO_DATE('14 May 2000', 'DD Month, YYYY'), TO_DATE('18 October 2021', 'DD Month, YYYY'), 'Owner', 'e4rafat@gmail.com', '+8801312300321', 'Bangladesh', 'Dhaka', 'Dhaka', 'Dhaka', 'ECB', '1206');
 
 
 INSERT INTO USER_TABLE (USER_ID, USERNAME, PASSWORD, DOB, DOR, ROLE, CONT_EMAIL, CONT_PHONE, ADD_COUNTRY, ADD_STATE, ADD_DISTRICT, ADD_CITY, ADD_AREA, ADD_POSTAL_CODE) 
