@@ -416,14 +416,14 @@ echo $row['USERNAME'] . " " . $row['PROFILE_LINK'];
                                         <div class="property--info">
                                             <h5 class="property--title"><a href="#">'.$row['P_TITLE'].'</a></h5>
                                             <p class="property--location">'.$row['LOC_AREA'].'</p>
-                                            <p class="property--price">'.$row['PRICE'].'</p>
+                                            <p class="property--price">USD '.$row['PRICE'].'</p>
                                         </div>
                                         <!-- .property-info end -->
                                         <div class="property--features">
                                             <ul class="list-unstyled mb-0">
-                                                <li><span class="feature">Beds:</span><span class="feature-num">2</span>
+                                                <li><span class="feature">Beds:</span><span class="feature-num">'.$row['ROOMS_BEDROOMS'].'</span>
                                                 </li>
-                                                <li><span class="feature">Baths:</span><span class="feature-num">1</span>
+                                                <li><span class="feature">Baths:</span><span class="feature-num">'.$row['ROOMS_BATHROOMS'].'</span>
                                                 </li>
                                                 <li><span class="feature">Area:</span><span class="feature-num"> '.$row['PROPERTY_AREA'].' sq
                                                         ft</span></li>
