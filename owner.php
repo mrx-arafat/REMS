@@ -409,7 +409,7 @@ echo $row['USERNAME'] . " " . $row['PROFILE_LINK'];
                                         <a href="#">
                                             <img src="assets/images/properties/3.jpg" alt="property image"
                                                 class="img-responsive">
-                                            <span class="property--status">For Sale</span>
+                                            <span class="property--status">'.$row['STATUS'].'</span>
                                         </a>
                                     </div>
                                     <div class="property--content">
