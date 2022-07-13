@@ -1,10 +1,45 @@
 <?php
+    $connection = oci_connect('arafatx','arafatx','localhost/XE')
+                    or die(oci_error());
+    if (!$connection){
+    echo "sorry there is some issues";
+    }
+    else{
+    // echo "Yaaay!! Ready to execute";
+    }
+    // close the connection
+    oci_close($connection);
+?>
+
+
+
+<?php
 session_start();
-$uname = $_SESSION['uname'];
-$connection = oci_connect('SHADMANEE','joincidencewaC99','localhost/XE')
+$connection = oci_connect('arafatx','arafatx','localhost/XE')
 				or die(oci_error());
 $wrongPass = false;
 // close the connection
+
+
+if($_SERVER ['REQUEST_METHOD']=='POST'){
+
+$uname = $_POST['login-name'];
+$_SESSION['uname'] = $uname;
+$pass = $_POST['login-password'];
+$sql ="select * from user_table where username='$uname' and password = '$pass'";
+$stid = oci_parse($connection, $sql);
+$r = oci_execute($stid);
+$row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS);
+if($row == null) {
+    $wrongPass = true;
+}
+else {
+    header("Location: login-index.php");
+}
+
+}
+
+
 ?>
 
 
@@ -72,65 +107,134 @@ $wrongPass = false;
                         <ul class="nav navbar-nav nav-pos-center navbar-left">
                             <!-- Home Menu -->
                             <li class="active">
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item">home</a>
+                                <a href="index.html">home</a>
                             </li>
                             <!-- li end -->
 
 
                             <!-- Properties Menu-->
-                            <li class="has-dropdown">
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item">Properties</a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="properties-grid-user.html">All Properties</a>
-                                    </li>
-                                    <li>
-                                        <a href="my-properties.html">My Properties</a>
-                                    </li>
-                                </ul>
-                            </li>
-
                             <li>
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item">forum</a>
+                                <a href="properties-grid-nonuser.html">Properties</a>                                
                             </li>
-
                             <!-- li end -->
-                            <li class="has-dropdown">
-                                <a data-toggle="dropdown" class="dropdown-toggle menu-item btn-popup">
-                                <?php
-                                
-                                    $sql ="SELECT * FROM USER_TABLE WHERE USERNAME='$uname'";
-                                    $stid = oci_parse($connection, $sql);
-                                    $r = oci_execute($stid);
-                                    $row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS);
-                                    echo $row['USERNAME'];
-                                
-                                ?>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="agent-profile.php">My Account</a>
-                                    </li>
-                                    <li>
-                                        <a>Favorites</a>
-                                    </li>
-                                    <li>
-                                        <a>Logout</a>
-                                    </li>
-                                </ul>
-                            </li>
-
+                            <li><a href="page-contact.html">Forum</a></li>
                         </ul>
                         <!-- ADD FAVORITES ICON HERE -->
+                        <div class="module module-login pull-left d-flex">
+                            <a class="btn-popup" data-toggle="modal" data-target="#signupModule">Favorites</a>
+                            <a class="btn-popup" data-toggle="modal" data-target="#signupModule">Login/Signup</a>
+                            <div class="modal register-login-modal fade" tabindex="-1" role="dialog" id="signupModule">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="row">
+
+                                                <!-- Nav tabs -->
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active"><a href="#login" data-toggle="tab">login</a>
+                                                    </li>
+                                                    <li><a href="#signup" data-toggle="tab">signup</a>
+                                                    </li>
+                                                </ul>
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                    <div class="tab-pane fade in active" id="login">
+                                                        <div class="signup-form-container text-center">
+                                                            <form action="index.php" method="POST" class="mb-0">
+                                                                <a href="www.facebook.com"
+                                                                    class="btn btn--facebook btn--block"><i
+                                                                        class="fa fa-facebook-square"></i>Login with
+                                                                    Facebook</a>
+                                                                <div class="or-text">
+                                                                    <span>or</span>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control"
+                                                                        name="login-name" id="login-name"
+                                                                        placeholder="Username">
+                                                                </div>
+                                                                <!-- .form-group end -->
+                                                                <div class="form-group">
+                                                                    <input type="password" class="form-control"
+                                                                        name="login-password" id="login-password"
+                                                                        placeholder="Password">
+                                                                </div>
+                                                                <!-- .form-group end -->
+                                                                <div class="input-checkbox">
+                                                                    <label class="label-checkbox">
+                                                                        <span>Remember Me</span>
+                                                                        <input type="checkbox">
+                                                                        <span class="check-indicator"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <input type="submit" class="btn btn--primary btn--block"
+                                                                    value="Sign In">
+                                                                <a href="#" class="forget-password">Forget your
+                                                                    password?</a>
+                                                            </form>
+                                                            <!-- form  end -->
+                                                        </div>
+                                                        <!-- .signup-form end -->
+                                                    </div>
+                                                    <div class="tab-pane" id="signup">
+                                                        <form class="mb-0" action="signup.php" method="POST">
+                                                            <a href="www.facebook.com"
+                                                                class="btn btn--facebook btn--block"><i
+                                                                    class="fa fa-facebook-square"></i>Register with
+                                                                Facebook</a>
+                                                            <div class="or-text">
+                                                                <span>or</span>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="full-name"
+                                                                    id="full-name" placeholder="Username">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="email" class="form-control"
+                                                                    name="register-email" id="register-email"
+                                                                    placeholder="Email Address">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="phone"
+                                                                    id="phone" placeholder="Phone Number">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="password" class="form-control"
+                                                                    name="register-password" id="register-password"
+                                                                    placeholder="Password">
+                                                            </div>
+                                                            <!-- .form-group end -->
+                                                            <div class="input-checkbox">
+                                                                <label class="label-checkbox">
+                                                                    <span>I agree with all <a
+                                                                            href="termsandconditions.html">Terms &
+                                                                            Conditions</a></span>
+                                                                    <input type="checkbox"
+                                                                        onchange="document.getElementById('register').disabled = !this.checked;">
+                                                                    <span class="check-indicator"></span>
+                                                                </label>
+                                                            </div>
+                                                            <input type="submit" name="register" action="signup.php"
+                                                                class="btn btn--primary btn--block" id="register"
+                                                                disabled value="Register">
+                                                        </form>
+                                                        <!-- form  end -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                <!-- /.modal -->
+                            </div>
+                        </div>
                         <!-- Module Consultation  -->
                         <div class="module module-property pull-left">
-                            <a class="btn" href="add-property.html"><i class="fa fa-plus"></i>
+                            <a class="btn" data-toggle="modal" data-target="#signupModule"><i class="fa fa-plus"></i>
                                 add property</a>
                         </div>
-                        <!-- <div class="module module-property pull-left">
-                            <a href="add-property.html" target="_blank" class="btn"><i class="fa fa-plus"></i> add
-                                property</a>
-                        </div> -->
                     </div>
                     <!-- /.navbar-collapse -->
                 </div>
@@ -277,22 +381,16 @@ $wrongPass = false;
                                             </div>
                                         </div>
                                         <!-- .col-md-3 end -->
-                                        <div class="col-xs-12 col-sm-6 col-md-3 option-hide">
-                                            <div class="form-group">
-                                                <div class="select--box">
-                                                    <i class="fa fa-angle-down"></i>
-                                                    <select name="select-baths" id="select-baths">
-                                                        <option>Rating</option>
-                                                        <option>1 and above</option>
-                                                        <option>2 and above</option>
-                                                        <option>3 and abovet</option>
-                                                        <option>4 and above</option>
-                                                        <option>5</option>
-                                                    </select>
-                                                </div>
+                                        <!-- <div class="col-xs-12 col-sm-6 col-md-6 option-hide">
+                                            <div class="filter mb-30">
+                                                <p>
+                                                    <label for="amount">Rating: </label>
+                                                    <input id="ratingamount" type="text" class="ratingamount" readonly>
+                                                </p>
+                                                <div class="slider-range"></div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-3 col-md-6 option-hide">
+                                        </div> -->
+                                        <div class="col-xs-12 col-sm-6 col-md-9 option-hide">
                                             <div class="filter mb-30">
                                                 <p>
                                                     <label for="amount">Price Range: </label>
@@ -350,7 +448,7 @@ $wrongPass = false;
 
         <!-- properties-carousel
 ============================================= -->
-        <section id="properties-carousel" class="properties-carousel pt-90 pb-90">
+<section id="properties-carousel" class="properties-carousel pt-90 pb-90">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -639,7 +737,7 @@ $wrongPass = false;
                             </div>
                             <div class="feature--content">
                                 <h3>Take Your Key</h3>
-                                <p>Take ownership of your forever home!</p>
+                                <p>Take ownership of your forever home!</p> 
                             </div>
                         </div>
                         <!-- .feature-panel end -->
@@ -653,7 +751,7 @@ $wrongPass = false;
         <!-- .feature end -->
         <!-- city-property
 ============================================= -->
-        <section id="city-property" class="city-property text-center pb-70">
+<section id="city-property" class="city-property text-center pb-70">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -800,98 +898,7 @@ $wrongPass = false;
 
         <!-- agents
 =============================================
-        <section id="agents" class="agents bg-white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="heading heading-2 text-center mb-70">
-                            <h2 class="heading--title">Trusted Agents</h2>
-                            <p class="heading--desc">Duis aute irure dolor in reprehed in volupted velit esse dolore</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                        <div class="agent">
-                            <div class="agent--img">
-                                <img src="assets/images/agents/grid/1.png" alt="agent" />
-                                <div class="agent--details">
-                                    <p>Lorem ipsum dolor sit amet, consece adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore dolore.</p>
-                                    <div class="agent--social-links">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="agent--info">
-                                <h5 class="agent--title">Steve Martin</h5>
-                                <h6 class="agent--position">Buying Agent</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                        <div class="agent">
-                            <div class="agent--img">
-                                <img src="assets/images/agents/grid/2.png" alt="agent" />
-                                <div class="agent--details">
-                                    <p>Lorem ipsum dolor sit amet, consece adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore dolore.</p>
-                                    <div class="agent--social-links">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="agent--info">
-                                <h5 class="agent--title">Mark Smith</h5>
-                                <h6 class="agent--position">Selling Agent</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                        <div class="agent">
-                            <div class="agent--img">
-                                <img src="assets/images/agents/grid/3.png" alt="agent" />
-                                <div class="agent--details">
-                                    <p>Lorem ipsum dolor sit amet, consece adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore dolore.</p>
-                                    <div class="agent--social-links">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="agent--info">
-                                <h5 class="agent--title">Ryan Printz</h5>
-                                <h6 class="agent--position">Real Estate Broker</h6>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>#agents end  -->
-
-        <!-- cta #1
-============================================= 
-        <section id="cta" class="cta cta-1 text-center bg-overlay bg-overlay-dark pt-90">
-            <div class="bg-section"><img src="assets/images/cta/bg-1.jpg" alt="Background"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
-                        <h3>Join our professional team & agents to start selling your house</h3>
-                        <a href="#" class="btn btn--primary">Contact</a>
-                    </div>
-                </div>
-            </div>
-        </section>-->
+        
 
         <!-- Footer #1
 ============================================= -->
