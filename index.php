@@ -771,6 +771,89 @@ else {
             </div>
             <!-- .container -->
         </section>
+
+        <section id="properties-carousel" class="properties-carousel pt-90 pb-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="heading heading-2 text-center mb-70">
+                            <h2 class="heading--title">Latest Properties</h2>
+                            <p class="heading--desc">Find the properties most recently added.</p>
+                        </div>
+                        <!-- .heading-title end -->
+                    </div>
+                    <!-- .col-md-12 end -->
+                </div>
+                <!-- .row end -->
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="carousel carousel-dots" data-slide="3" data-slide-rs="2" data-autoplay="true"
+                            data-nav="false" data-dots="true" data-space="25" data-loop="true" data-speed="800">
+                            <!-- .property-item #1 -->
+
+
+
+                            <?php
+
+
+                            $sql ="select * from property";
+                            $stid = oci_parse($connection, $sql);
+
+                            $r = oci_execute($stid);
+
+                            while($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
+                                echo '
+                                <div class="property-item">
+                                    <div class="property--img">
+                                        <a href="#">
+                        
+                                            <img src="'.$row['THUMBNAIL'].'" alt="property image"
+                                                class="img-responsive">
+                                            <span class="property--status">'.$row['STATUS'].'</span>
+                                        </a>
+                                    </div>
+                                    <div class="property--content">
+                                        <div class="property--info">
+                                            <h5 class="property--title"><a href="#">'.$row['P_TITLE'].'</a></h5>
+                                            <p class="property--location">'.$row['LOC_AREA'].'</p>
+                                            <p class="property--price">USD '.$row['PRICE'].'</p>
+                                        </div>
+                                        <!-- .property-info end -->
+                                        <div class="property--features">
+                                            <ul class="list-unstyled mb-0">
+                                                <li><span class="feature">Beds:</span><span class="feature-num">'.$row['ROOMS_BEDROOMS'].'</span>
+                                                </li>
+                                                <li><span class="feature">Baths:</span><span class="feature-num">'.$row['ROOMS_BATHROOMS'].'</span>
+                                                </li>
+                                                <li><span class="feature">Area:</span><span class="feature-num"> '.$row['PROPERTY_AREA'].' sq
+                                                        ft</span></li>
+                                            </ul>
+                                        </div>
+                                        <!-- .property-features end -->
+                                    </div>
+                                </div>
+                                ';
+                            }
+
+
+
+
+                            ?>
+
+
+                            
+                            <!-- .property item end -->
+
+                            
+                        </div>
+                        <!-- .carousel end -->
+                    </div>
+                    <!-- .col-md-12 -->
+                </div>
+                <!-- .row -->
+            </div>
+            <!-- .container -->
+        </section>
         <!-- #properties-carousel  end  -->
 
         <!-- HIGHEST RATED -->
