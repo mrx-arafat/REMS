@@ -122,7 +122,7 @@ echo $row['USERNAME'];
 	</a>
 
 
-                            <a class="btn-popup" href="/logout.php">Logout</a>
+                            <a  href="logout.php">Logout</a>
 
                         </div>
                         <!-- Module Consultation  -->

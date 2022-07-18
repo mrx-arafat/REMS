@@ -559,6 +559,15 @@ else {
 
         <!-- properties-carousel
 ============================================= -->
+
+
+<h1>arafat test</h1>
+
+
+
+
+
+
         <section id="properties-carousel" class="properties-carousel pt-90 pb-90">
             <div class="container">
                 <div class="row">

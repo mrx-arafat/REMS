@@ -3,14 +3,18 @@
 
 session_start();
 
-if($_SESSION['uname']){
-    echo "welcome ";
-}
-else{
+// if($_SESSION['uname']){
+//     echo "Hey ".$_SESSION['uname']." are you sure?";
+// }
 
-    header("location:index.php");
-}
+// else{
 
+//     header("location:index.php");
+// }
+
+
+session_destroy();
+
+header("location:index.php");
 ?>
 
-<a class="btn-popup" href="/logout.php">Logout</a>
