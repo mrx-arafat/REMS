@@ -119,10 +119,11 @@ echo $row['USERNAME'];
 
 
 ?>
+	</a>
 
 
-							</a>
-                            <a class="btn-popup" href="index.html">Logout</a>
+                            <a class="btn-popup" href="/logout.php">Logout</a>
+
                         </div>
                         <!-- Module Consultation  -->
                         <div class="module module-property pull-left">
@@ -151,7 +152,7 @@ echo $row['USERNAME'];
                         <div class="slider--content">
                             <div class="text-center">
 								
-							<!-- test php	 -->
+							<!-- profile name php	 -->
 								<?php
 
 
