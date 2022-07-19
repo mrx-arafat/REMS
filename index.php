@@ -1,32 +1,29 @@
 <?php
 session_start();
-$connection = oci_connect('arafatx','arafatx','localhost/XE')
-				or die(oci_error());
+$connection = oci_connect('arafatx', 'arafatx', 'localhost/XE')
+    or die(oci_error());
 $wrongPass = false;
 // close the connection
 
 
-if($_SERVER ['REQUEST_METHOD']=='POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-$uname = $_POST['login-name'];
-$_SESSION['uname'] = $uname;
-$pass = $_POST['login-password'];
-$sql ="select * from user_table where username='$uname' and password = '$pass'";
-$stid = oci_parse($connection, $sql);
-$r = oci_execute($stid);
-$row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS);
-if($row == null) {
-    $wrongPass = true;
-}
-else {
-    if($row['ROLE'] == 'Owner') {
-        header("Location: owner.php");
+    $uname = $_POST['login-name'];
+    $_SESSION['uname'] = $uname;
+    $pass = $_POST['login-password'];
+    $sql = "select * from user_table where username='$uname' and password = '$pass'";
+    $stid = oci_parse($connection, $sql);
+    $r = oci_execute($stid);
+    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+    if ($row == null) {
+        $wrongPass = true;
+    } else {
+        if ($row['ROLE'] == 'Owner') {
+            header("Location: owner.php");
+        } else {
+            header("Location: customer.php");
+        }
     }
-    else {
-        header("Location: customer.php");
-    }
-}
-
 }
 
 
@@ -49,9 +46,7 @@ else {
 
     <!-- Fonts
     ============================================= -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i%7CPoppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i%7CPoppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Stylesheets
     ============================================= -->
     <link href="assets/css/external.css" rel="stylesheet">
@@ -82,8 +77,7 @@ else {
                 <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#navbar-collapse-1" aria-expanded="false">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -240,25 +234,19 @@ else {
                                                 <div class="tab-content">
                                                     <div class="tab-pane fade in active" id="login">
                                                         <div class="signup-form-container text-center">
-                                                            
+
                                                             <form action="index.php" method="post" class="mb-0">
-                                                                <a href="www.facebook.com"
-                                                                    class="btn btn--facebook btn--block"><i
-                                                                        class="fa fa-facebook-square"></i>Login with
+                                                                <a href="www.facebook.com" class="btn btn--facebook btn--block"><i class="fa fa-facebook-square"></i>Login with
                                                                     Facebook</a>
                                                                 <div class="or-text">
                                                                     <span>or</span>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <input type="text" class="form-control"
-                                                                        name="login-name" id="login-name"
-                                                                        placeholder="Username">
+                                                                    <input type="text" class="form-control" name="login-name" id="login-name" placeholder="Username">
                                                                 </div>
                                                                 <!-- .form-group end -->
                                                                 <div class="form-group">
-                                                                    <input type="password" class="form-control"
-                                                                        name="login-password" id="login-password"
-                                                                        placeholder="Password">
+                                                                    <input type="password" class="form-control" name="login-password" id="login-password" placeholder="Password">
                                                                 </div>
                                                                 <!-- .form-group end -->
                                                                 <div class="input-checkbox">
@@ -268,8 +256,7 @@ else {
                                                                         <span class="check-indicator"></span>
                                                                     </label>
                                                                 </div>
-                                                                <input type="submit" class="btn btn--primary btn--block"
-                                                                    value="Sign In">
+                                                                <input type="submit" class="btn btn--primary btn--block" value="Sign In">
                                                                 <a href="login-index.html">CHECK LOGIN</a>
                                                                 <a href="#" class="forget-password">Forget your
                                                                     password?</a>
@@ -280,45 +267,33 @@ else {
                                                     </div>
                                                     <div class="tab-pane" id="signup">
                                                         <form class="mb-0" action="signup.php" method="POST">
-                                                            <a href="www.facebook.com"
-                                                                class="btn btn--facebook btn--block"><i
-                                                                    class="fa fa-facebook-square"></i>Register with
+                                                            <a href="www.facebook.com" class="btn btn--facebook btn--block"><i class="fa fa-facebook-square"></i>Register with
                                                                 Facebook</a>
                                                             <div class="or-text">
                                                                 <span>or</span>
                                                             </div>
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" name="full-name"
-                                                                    id="full-name" placeholder="Username">
+                                                                <input type="text" class="form-control" name="full-name" id="full-name" placeholder="Username">
                                                             </div>
                                                             <div class="form-group">
-                                                                <input type="email" class="form-control"
-                                                                    name="register-email" id="register-email"
-                                                                    placeholder="Email Address">
+                                                                <input type="email" class="form-control" name="register-email" id="register-email" placeholder="Email Address">
                                                             </div>
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" name="phone"
-                                                                    id="phone" placeholder="Phone Number">
+                                                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number">
                                                             </div>
                                                             <div class="form-group">
-                                                                <input type="password" class="form-control"
-                                                                    name="register-password" id="register-password"
-                                                                    placeholder="Password">
+                                                                <input type="password" class="form-control" name="register-password" id="register-password" placeholder="Password">
                                                             </div>
                                                             <!-- .form-group end -->
                                                             <div class="input-checkbox">
                                                                 <label class="label-checkbox">
-                                                                    <span>I agree with all <a
-                                                                            href="termsandconditions.html">Terms &
+                                                                    <span>I agree with all <a href="termsandconditions.html">Terms &
                                                                             Conditions</a></span>
-                                                                    <input type="checkbox"
-                                                                        onchange="document.getElementById('register').disabled = !this.checked;">
+                                                                    <input type="checkbox" onchange="document.getElementById('register').disabled = !this.checked;">
                                                                     <span class="check-indicator"></span>
                                                                 </label>
                                                             </div>
-                                                            <input type="submit" name="register" action="signup.php"
-                                                                class="btn btn--primary btn--block" id="register"
-                                                                disabled value="Register">
+                                                            <input type="submit" name="register" action="signup.php" class="btn btn--primary btn--block" id="register" disabled value="Register">
                                                         </form>
                                                         <!-- form  end -->
                                                     </div>
@@ -497,11 +472,12 @@ else {
                                                 <label for="myRange">Rating: </label>
                                             </p>
                                             <div class="slidecontainer">
-                                                <input type="range" min="1" max="5" value="1" class="slider"
-                                                    id="myRange">
+                                                <input type="range" min="1" max="5" value="1" class="slider" id="myRange">
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-6 col-md-6 option-hide">
+
+
                                             <div class="filter mb-30">
                                                 <p>
                                                     <label for="amount">Price Range: </label>
@@ -509,11 +485,12 @@ else {
                                                 </p>
                                                 <div class="slider-range"></div>
                                             </div>
+
+
                                         </div>
                                         <!-- .col-md-3 end -->
                                         <div class="col-xs-12 col-sm-6 col-md-3">
-                                            <input type="submit" value="Search" name="submit"
-                                                class="btn btn--primary btn--block">
+                                            <input type="submit" value="Search" name="submit" class="btn btn--primary btn--block">
                                         </div>
                                         <!-- .col-md-3 end -->
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -530,8 +507,7 @@ else {
                 </div>
                 <!-- .slider-text end -->
             </div>
-            <div class="carousel slider-navs" data-slide="1" data-slide-rs="1" data-autoplay="true" data-nav="true"
-                data-dots="false" data-space="0" data-loop="true" data-speed="800">
+            <div class="carousel slider-navs" data-slide="1" data-slide-rs="1" data-autoplay="true" data-nav="true" data-dots="false" data-space="0" data-loop="true" data-speed="800">
                 <!-- Slide #1 -->
                 <div class="slide--item bg-overlay bg-overlay-dark3">
                     <div class="bg-section">
@@ -561,7 +537,7 @@ else {
 ============================================= -->
 
 
-<h1>arafat test</h1>
+        <h1>arafat test</h1>
 
 
 
@@ -583,14 +559,12 @@ else {
                 <!-- .row end -->
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="carousel carousel-dots" data-slide="3" data-slide-rs="2" data-autoplay="true"
-                            data-nav="false" data-dots="true" data-space="25" data-loop="true" data-speed="800">
+                        <div class="carousel carousel-dots" data-slide="3" data-slide-rs="2" data-autoplay="true" data-nav="false" data-dots="true" data-space="25" data-loop="true" data-speed="800">
                             <!-- .property-item #1 -->
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/3.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/3.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -620,8 +594,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/11.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/11.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -651,8 +624,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/5.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/5.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Rent</span>
                                     </a>
                                 </div>
@@ -682,8 +654,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/4.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/4.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -713,8 +684,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/2.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/2.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Rent</span>
                                     </a>
                                 </div>
@@ -744,8 +714,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/3.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/3.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -796,8 +765,7 @@ else {
                 <!-- .row end -->
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="carousel carousel-dots" data-slide="3" data-slide-rs="2" data-autoplay="true"
-                            data-nav="false" data-dots="true" data-space="25" data-loop="true" data-speed="800">
+                        <div class="carousel carousel-dots" data-slide="3" data-slide-rs="2" data-autoplay="true" data-nav="false" data-dots="true" data-space="25" data-loop="true" data-speed="800">
                             <!-- .property-item #1 -->
 
 
@@ -805,36 +773,36 @@ else {
                             <?php
 
 
-                            $sql ="select * from property";
+                            $sql = "select * from property";
                             $stid = oci_parse($connection, $sql);
 
                             $r = oci_execute($stid);
 
-                            while($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
+                            while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                                 echo '
                                 <div class="property-item">
                                     <div class="property--img">
                                         <a href="#">
                         
-                                            <img src="'.$row['THUMBNAIL'].'" alt="property image"
+                                            <img src="' . $row['THUMBNAIL'] . '" alt="property image"
                                                 class="img-responsive">
-                                            <span class="property--status">'.$row['STATUS'].'</span>
+                                            <span class="property--status">' . $row['STATUS'] . '</span>
                                         </a>
                                     </div>
                                     <div class="property--content">
                                         <div class="property--info">
-                                            <h5 class="property--title"><a href="#">'.$row['P_TITLE'].'</a></h5>
-                                            <p class="property--location">'.$row['LOC_AREA'].'</p>
-                                            <p class="property--price">USD '.$row['PRICE'].'</p>
+                                            <h5 class="property--title"><a href="#">' . $row['P_TITLE'] . '</a></h5>
+                                            <p class="property--location">' . $row['LOC_AREA'] . '</p>
+                                            <p class="property--price">USD ' . $row['PRICE'] . '</p>
                                         </div>
                                         <!-- .property-info end -->
                                         <div class="property--features">
                                             <ul class="list-unstyled mb-0">
-                                                <li><span class="feature">Beds:</span><span class="feature-num">'.$row['ROOMS_BEDROOMS'].'</span>
+                                                <li><span class="feature">Beds:</span><span class="feature-num">' . $row['ROOMS_BEDROOMS'] . '</span>
                                                 </li>
-                                                <li><span class="feature">Baths:</span><span class="feature-num">'.$row['ROOMS_BATHROOMS'].'</span>
+                                                <li><span class="feature">Baths:</span><span class="feature-num">' . $row['ROOMS_BATHROOMS'] . '</span>
                                                 </li>
-                                                <li><span class="feature">Area:</span><span class="feature-num"> '.$row['PROPERTY_AREA'].' sq
+                                                <li><span class="feature">Area:</span><span class="feature-num"> ' . $row['PROPERTY_AREA'] . ' sq
                                                         ft</span></li>
                                             </ul>
                                         </div>
@@ -850,10 +818,10 @@ else {
                             ?>
 
 
-                            
+
                             <!-- .property item end -->
 
-                            
+
                         </div>
                         <!-- .carousel end -->
                     </div>
@@ -882,14 +850,12 @@ else {
                 <!-- .row end -->
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="carousel carousel-dots" data-slide="3" data-slide-rs="2" data-autoplay="true"
-                            data-nav="false" data-dots="true" data-space="25" data-loop="true" data-speed="800">
+                        <div class="carousel carousel-dots" data-slide="3" data-slide-rs="2" data-autoplay="true" data-nav="false" data-dots="true" data-space="25" data-loop="true" data-speed="800">
                             <!-- .property-item #1 -->
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/3.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/3.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -919,8 +885,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/11.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/11.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -950,8 +915,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/5.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/5.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Rent</span>
                                     </a>
                                 </div>
@@ -981,8 +945,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/4.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/4.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -1012,8 +975,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/2.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/2.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Rent</span>
                                     </a>
                                 </div>
@@ -1043,8 +1005,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/3.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/3.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -1099,14 +1060,12 @@ else {
                 <!-- .row end -->
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="carousel carousel-dots" data-slide="3" data-slide-rs="2" data-autoplay="true"
-                            data-nav="false" data-dots="true" data-space="25" data-loop="true" data-speed="800">
+                        <div class="carousel carousel-dots" data-slide="3" data-slide-rs="2" data-autoplay="true" data-nav="false" data-dots="true" data-space="25" data-loop="true" data-speed="800">
                             <!-- .property-item #1 -->
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/3.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/3.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -1136,8 +1095,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/11.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/11.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -1167,8 +1125,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/5.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/5.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Rent</span>
                                     </a>
                                 </div>
@@ -1198,8 +1155,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/4.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/4.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -1229,8 +1185,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/2.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/2.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Rent</span>
                                     </a>
                                 </div>
@@ -1260,8 +1215,7 @@ else {
                             <div class="property-item">
                                 <div class="property--img">
                                     <a href="#">
-                                        <img src="assets/images/properties/3.jpg" alt="property image"
-                                            class="img-responsive">
+                                        <img src="assets/images/properties/3.jpg" alt="property image" class="img-responsive">
                                         <span class="property--status">For Sale</span>
                                     </a>
                                 </div>
@@ -1634,8 +1588,7 @@ else {
                             </div>
                             <div class="widget--content">
                                 <form class="newsletter--form mb-40">
-                                    <input type="email" class="form-control" id="newsletter-email"
-                                        placeholder="Email Address">
+                                    <input type="email" class="form-control" id="newsletter-email" placeholder="Email Address">
                                     <button type="submit"><i class="fa fa-arrow-right"></i></button>
                                 </form>
                                 <h6>Get In Touch</h6>
